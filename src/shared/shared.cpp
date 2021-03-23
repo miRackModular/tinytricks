@@ -44,8 +44,8 @@ struct TinyTricksModuleWidget : ModuleWidget{
   Widget* topSilver;
   Widget* bottomSilver;
 
-  Widget* topBlack;
-  Widget* bottomBlack;
+  // Widget* topBlack;
+  // Widget* bottomBlack;
 
   int currentSkin = 0;
 
@@ -66,15 +66,15 @@ struct TinyTricksModuleWidget : ModuleWidget{
     //Screws
     topSilver = createWidget<ScrewSilver>(Vec(0, 0));
     bottomSilver = createWidget<ScrewSilver>(Vec(box.size.x - 15, 365));
-    topBlack = createWidget<ScrewBlack>(Vec(0, 0));
-    bottomBlack = createWidget<ScrewBlack>(Vec(box.size.x - 15, 365));
+    // topBlack = createWidget<ScrewBlack>(Vec(0, 0));
+    // bottomBlack = createWidget<ScrewBlack>(Vec(box.size.x - 15, 365));
 
     addChild(topSilver);
     addChild(bottomSilver);
-    addChild(topBlack);
-    addChild(bottomBlack);
+    // addChild(topBlack);
+    // addChild(bottomBlack);
 
-    updateScrews();
+    // updateScrews();
   }
 
   void setSkin(int skinId){
@@ -91,43 +91,43 @@ struct TinyTricksModuleWidget : ModuleWidget{
   void updateScrews(){
     topSilver->visible = (currentSkin == 0);
     bottomSilver->visible = (currentSkin == 0);
-    topBlack->visible = (currentSkin != 0);
-    bottomBlack->visible = (currentSkin != 0);
+    // topBlack->visible = (currentSkin != 0);
+    // bottomBlack->visible = (currentSkin != 0);
   }
 
-  void step() override{
-    //std::cout << "currentSkin: " << currentSkin << std::endl;
-    if(module){
-      int moduleSkin = dynamic_cast<TinyTricksModule*>(module)->APPLIED_SKIN;
-      if(moduleSkin != currentSkin){
-        setSkin(moduleSkin);
-        updateScrews();
-      }
-    }
+  // void step() override{
+  //   //std::cout << "currentSkin: " << currentSkin << std::endl;
+  //   if(module){
+  //     int moduleSkin = dynamic_cast<TinyTricksModule*>(module)->APPLIED_SKIN;
+  //     if(moduleSkin != currentSkin){
+  //       setSkin(moduleSkin);
+  //       updateScrews();
+  //     }
+  //   }
 
-    ModuleWidget::step();
-  }
+  //   ModuleWidget::step();
+  // }
 
-  void appendContextMenu(Menu* menu) override {
-    menu->addChild(new MenuEntry);
-    menu->addChild(createMenuLabel("Theme"));
+  // void appendContextMenu(Menu* menu) override {
+  //   menu->addChild(new MenuEntry);
+  //   menu->addChild(createMenuLabel("Theme"));
 
-    struct ModeItem : MenuItem {
-      TinyTricksModuleWidget* widget;
-      int skin;
-      void onAction(const event::Action& e) override {
-        widget->setSkin(skin);
-        widget->updateScrews();
-      }
-    };
+  //   struct ModeItem : MenuItem {
+  //     TinyTricksModuleWidget* widget;
+  //     int skin;
+  //     void onAction(const event::Action& e) override {
+  //       widget->setSkin(skin);
+  //       widget->updateScrews();
+  //     }
+  //   };
 
 
-    for (int i = 0; i < SKIN_COUNT; i++) {
-      ModeItem* modeItem = createMenuItem<ModeItem>(SKIN_NAMES[i]);
-      modeItem->rightText = CHECKMARK(currentSkin == i);
-      modeItem->widget = this;
-      modeItem->skin = i;
-      menu->addChild(modeItem);
-    }
-  }
+  //   for (int i = 0; i < SKIN_COUNT; i++) {
+  //     ModeItem* modeItem = createMenuItem<ModeItem>(SKIN_NAMES[i]);
+  //     modeItem->rightText = CHECKMARK(currentSkin == i);
+  //     modeItem->widget = this;
+  //     modeItem->skin = i;
+  //     menu->addChild(modeItem);
+  //   }
+  // }
 };
